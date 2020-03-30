@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/Covid19LivingArchive/static/css/main.49fb6980.chunk.css",
+    "main.js": "/Covid19LivingArchive/static/js/main.1331df8a.chunk.js",
+    "main.js.map": "/Covid19LivingArchive/static/js/main.1331df8a.chunk.js.map",
+    "runtime-main.js": "/Covid19LivingArchive/static/js/runtime-main.4a0b28df.js",
+    "runtime-main.js.map": "/Covid19LivingArchive/static/js/runtime-main.4a0b28df.js.map",
+    "static/css/2.a9d422b8.chunk.css": "/Covid19LivingArchive/static/css/2.a9d422b8.chunk.css",
+    "static/js/2.8c36b8a3.chunk.js": "/Covid19LivingArchive/static/js/2.8c36b8a3.chunk.js",
+    "static/js/2.8c36b8a3.chunk.js.map": "/Covid19LivingArchive/static/js/2.8c36b8a3.chunk.js.map",
+    "index.html": "/Covid19LivingArchive/index.html",
+    "precache-manifest.976cf6bd3d30674c57afd10e8b20e7a9.js": "/Covid19LivingArchive/precache-manifest.976cf6bd3d30674c57afd10e8b20e7a9.js",
+    "service-worker.js": "/Covid19LivingArchive/service-worker.js",
+    "static/css/2.a9d422b8.chunk.css.map": "/Covid19LivingArchive/static/css/2.a9d422b8.chunk.css.map",
+    "static/css/main.49fb6980.chunk.css.map": "/Covid19LivingArchive/static/css/main.49fb6980.chunk.css.map",
+    "static/js/2.8c36b8a3.chunk.js.LICENSE.txt": "/Covid19LivingArchive/static/js/2.8c36b8a3.chunk.js.LICENSE.txt",
+    "static/media/0.jpg": "/Covid19LivingArchive/static/media/0.73476783.jpg",
+    "static/media/1.jpeg": "/Covid19LivingArchive/static/media/1.ed986061.jpeg",
+    "static/media/10.jpeg": "/Covid19LivingArchive/static/media/10.fe349e85.jpeg",
+    "static/media/2.jpeg": "/Covid19LivingArchive/static/media/2.780ccb41.jpeg",
+    "static/media/3.jpeg": "/Covid19LivingArchive/static/media/3.41bf3241.jpeg",
+    "static/media/4.jpeg": "/Covid19LivingArchive/static/media/4.026cb7af.jpeg",
+    "static/media/5.jpeg": "/Covid19LivingArchive/static/media/5.6e846951.jpeg",
+    "static/media/6.jpeg": "/Covid19LivingArchive/static/media/6.47789d67.jpeg",
+    "static/media/7.jpeg": "/Covid19LivingArchive/static/media/7.2835396c.jpeg",
+    "static/media/8.jpeg": "/Covid19LivingArchive/static/media/8.10b775cc.jpeg",
+    "static/media/9.jpeg": "/Covid19LivingArchive/static/media/9.565ad4a3.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4a0b28df.js",
+    "static/css/2.a9d422b8.chunk.css",
+    "static/js/2.8c36b8a3.chunk.js",
+    "static/css/main.49fb6980.chunk.css",
+    "static/js/main.1331df8a.chunk.js"
+  ]
+}
