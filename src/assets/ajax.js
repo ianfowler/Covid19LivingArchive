@@ -127,25 +127,35 @@ export async function sift(corona, countries) {
     })
     corona.shift();
     corona.map((data) => {
-        const cases = data.Cases // 95
-        const status = data.Status // confirmed, deaths, recovered
-        const date = data.Date
-        const country = data.Country
-        const province = data.Province
+        const date = data.Date;
+        const country = data.Country;
+        const province = data.Province;
 
-        if (all[status][country][date]) {
-            all[status][country][date] = cases+all[status][country][date]
-        } else {
-            all[status][country][date] = cases
-        }
+        ["Confirmed", "Deaths", "Recovered"].forEach(disease_status => {
+            let disease_status_lower = disease_status.toLowerCase();
+            var cases = data[disease_status];
 
-        if (!(country==="US" && province!=="US")) {
-            if (all[status]['World'][date]) {
-                all[status]['World'][date] = cases+all[status]['World'][date]
-            } else {
-                all[status]['World'][date] = cases
+
+            if (all[disease_status_lower][country]) {
+                if (all[disease_status_lower][country][date]) {
+                    all[disease_status_lower][country][date] = cases+all[disease_status_lower][country][date];
+                } else {
+                    all[disease_status_lower][country][date] = cases;
+                }
+        
+                if (!(country==="US" && province!=="US")) {
+                    if (all[disease_status_lower]['World'][date]) {
+                        all[disease_status_lower]['World'][date] = cases+all[disease_status_lower]['World'][date];
+                    } else {
+                        all[disease_status_lower]['World'][date] = cases;
+                    }
+                }
             }
-        }
+
+            
+        })
+
+        
     })
     var toStore = JSON.stringify(all)
     ls.set('all', toStore);
