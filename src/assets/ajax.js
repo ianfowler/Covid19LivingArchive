@@ -77,6 +77,7 @@ export async function getCountries() {
 
 
 export async function getSummary() {
+    console.log("Getting summary")
     const endpoint = encodeURI(host + "summary");
     try {
         return await fetch(endpoint, {
@@ -220,6 +221,7 @@ export async function getCountriesList() {
 
 export async function getPie(cutoff) {
     var sum = await getSummary();
+    console.log(sum);
     let countries = sum.Countries  
     countries.shift()
     let obj = {}
@@ -235,3 +237,47 @@ export async function getPie(cutoff) {
     })
     return obj;
 }
+
+function csvJSON(csv) {
+    const lines = csv.split('\n')
+    const result = []
+    const headers = lines[0].split(',')
+
+    for (let i = 1; i < lines.length; i++) {        
+        if (!lines[i])
+            continue
+        const obj = {}
+        const currentline = lines[i].split(',')
+
+        for (let j = 0; j < headers.length; j++) {
+            obj[headers[j]] = currentline[j]
+        }
+        result.push(obj)
+    }
+    return result
+}
+
+export async function getEssays() {
+    const googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRATpDLZIEihPfIeqAF7PmF90NQtfnNN0J-3FxU4-xPCkCQhj3XkPPRYDAWQDtVeLJdzUbH3SrtNWxQ/pub?output=csv"
+    
+    const endpoint = encodeURI(googleSheetUrl);
+    try {
+        return await fetch(endpoint, {
+            method: 'GET'
+        }).then((response) => {
+            if (response.status !== 200) {
+                console.warn("Error fetching google sheet");
+            } else {
+                return response.text()
+            }
+        }).then((text) => {
+            const csv = csvJSON(text);
+            return csv;
+        });
+
+    } catch(error) {
+        console.error(error);
+        return "couldn't do it"
+    }
+}
+

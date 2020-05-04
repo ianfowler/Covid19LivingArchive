@@ -13,7 +13,6 @@ import ReactLoading from 'react-loading';
 import Select from 'react-select'
 
 
-
 class BlogOverview extends React.Component { 
   static propTypes = {
     smallStats: PropTypes.array
@@ -40,6 +39,8 @@ class BlogOverview extends React.Component {
     await updateDataIfNecessary();
     const ov = await getGlobalArr(ct);
     const cts = await getCountriesList();
+
+    
     const pie = await getPie(this.state.pieCutoff);
     const table = await getPie(this.state.tableCutoff);
     this.setState({overview:ov, countries:cts, country:ct, pie:pie, table: table})
