@@ -239,15 +239,17 @@ export async function getPie(cutoff) {
 }
 
 function csvJSON(csv) {
-    const lines = csv.split('\n')
+    console.log(csv)
+    const lines = csv.split(',!@#$%^&*')
+    const comma_replacement = ',Do not touch this cell. 8274698723,'
     const result = []
-    const headers = lines[0].split(',')
+    const headers = lines[0].split(comma_replacement)
 
     for (let i = 1; i < lines.length; i++) {        
         if (!lines[i])
             continue
         const obj = {}
-        const currentline = lines[i].split(',')
+        const currentline = lines[i].split(comma_replacement)
 
         for (let j = 0; j < headers.length; j++) {
             obj[headers[j]] = currentline[j]
@@ -259,7 +261,6 @@ function csvJSON(csv) {
 
 export async function getEssays() {
     const googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRATpDLZIEihPfIeqAF7PmF90NQtfnNN0J-3FxU4-xPCkCQhj3XkPPRYDAWQDtVeLJdzUbH3SrtNWxQ/pub?output=csv"
-    
     const endpoint = encodeURI(googleSheetUrl);
     try {
         return await fetch(endpoint, {
@@ -274,10 +275,47 @@ export async function getEssays() {
             const csv = csvJSON(text);
             return csv;
         });
-
     } catch(error) {
         console.error(error);
         return "couldn't do it"
     }
 }
 
+
+export async function downloadResource(urlString) {
+    const endpoint = encodeURI(urlString);
+    try {
+        return await fetch(endpoint, {
+            method: 'GET'
+        }).then((response) => {
+            if (response.status !== 200) {
+                console.warn("Error fetching resource");
+            } else {
+                return response.text()
+            }
+        }).then((text) => {
+            const csv = csvJSON(text);
+            return csv;
+        });
+    } catch(error) {
+        console.error(error);
+        return "couldn't do it"
+    }
+}
+
+
+
+export function isWebsite(urlString) {
+    var pattern = new RegExp(   '^(https?:\\/\\/)?'+ // protocol
+                                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+                                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return pattern.test(urlString);
+}
+
+export function isGoogleID(str) {
+    var pattern = new RegExp("[a-zA-Z0-9-_]+")
+    return pattern.test(str)
+}

@@ -26,7 +26,7 @@ class BlogOverview extends React.Component {
     table: null,
     pieCutoff: 5,
     tableCutoff: 12,
-    focus: ["Total Confirmed Cases", "Total Deaths", "Total Recoveries", "New Confirmed Cases", "New Deaths", "New Recoveries"]
+    focus: ["Total Confirmed Cases", "Total Deaths", "Total Recoveries"]//, "New Confirmed Cases", "New Deaths", "New Recoveries"]
   };
 
   async componentDidMount() {
@@ -159,7 +159,7 @@ class BlogOverview extends React.Component {
               />
             </Col>
     
-            {this.state.focus.map((x, i) => (<Col lg="2" md="12" sm="12" className="mb-4">
+            {this.state.focus.map((x, i) => (<Col lg="4" md="12" sm="12" className="mb-4">
               <TopReferrals {...{
                   key: i,
                   title: x,
