@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,5 +40,14 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script type="text/babel">
+      
+      import React from 'react';
+      import ReactDOM from 'react-dom';
+      import App from '../src/App';
+      const div = document.createElement('div');
+      ReactDOM.render(<App />, div);
+
+    </script>
   </body>
 </html>
