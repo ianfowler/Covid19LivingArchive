@@ -161,7 +161,7 @@ class BlogOverview extends React.Component {
             {/* Users Overview */}
             <Col style={{flex:1}}>
             <iframe style={{flex:1 }} width="100%"  height="390%" frameborder="0" scrolling="no" 
-    marginheight="0" marginwidth="0" title="2019-nCoV" 
+    marginHeight="0" marginWidth="0" title="2019-nCoV" 
     src="//arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=true&previewImage=false&scale=true&disable_scroll=true&theme=light"
   ></iframe>
             <a>{"Map: Johns Hopkins University"}</a>
