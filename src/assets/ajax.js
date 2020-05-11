@@ -84,7 +84,8 @@ export async function getSummary() {
             method: 'GET'
         }).then((response) => {
             if (response.status !== 200) {
-                console.warn("Error fetching summary");
+                console.warn("Error "+response.status+" while fetching summary");
+                return null
             } else {
                 return response.json();
             }
@@ -221,21 +222,24 @@ export async function getCountriesList() {
 
 export async function getPie(cutoff) {
     var sum = await getSummary();
-    console.log(sum);
-    let countries = sum.Countries  
-    countries.shift()
-    let obj = {}
-    let stateTranslator = {'TotalConfirmed': 'Total Confirmed Cases', 'TotalDeaths': 'Total Deaths', 'TotalRecovered': 'Total Recoveries', 'NewConfirmed': 'New Confirmed Cases', 'NewDeaths':'New Deaths', 'NewRecovered':'New Recoveries'}
-    Array.from(['TotalConfirmed', 'TotalDeaths', 'TotalRecovered', 'NewConfirmed', 'NewDeaths', 'NewRecovered']).map((state) => {
-        let sorted = countries.sort((a, b) => a[state] - b[state]).reverse().map(x => ({'country': x.Country, 'value': x[state]})).filter(function(value, index, arr){ return value.country !== "Iran (Islamic Republic of)";})
-        let other = sorted.slice(cutoff).map(x => x.value)
-        let otherSum = other.reduce(function(a, b){return a+b})
-        var fin = sorted.slice(0,cutoff)
-        fin.push({"country":"Other", 'value': otherSum})
-        obj[stateTranslator[state]] = fin
 
-    })
-    return obj;
+    if (sum) {
+        let countries = sum.Countries  
+        countries.shift()
+        let obj = {}
+        let stateTranslator = {'TotalConfirmed': 'Total Confirmed Cases', 'TotalDeaths': 'Total Deaths', 'TotalRecovered': 'Total Recoveries', 'NewConfirmed': 'New Confirmed Cases', 'NewDeaths':'New Deaths', 'NewRecovered':'New Recoveries'}
+        Array.from(['TotalConfirmed', 'TotalDeaths', 'TotalRecovered', 'NewConfirmed', 'NewDeaths', 'NewRecovered']).map((state) => {
+            let sorted = countries.sort((a, b) => a[state] - b[state]).reverse().map(x => ({'country': x.Country, 'value': x[state]})).filter(function(value, index, arr){ return value.country !== "Iran (Islamic Republic of)";})
+            let other = sorted.slice(cutoff).map(x => x.value)
+            let otherSum = other.reduce(function(a, b){return a+b})
+            var fin = sorted.slice(0,cutoff)
+            fin.push({"country":"Other", 'value': otherSum})
+            obj[stateTranslator[state]] = fin
+
+        })
+        return obj;
+    } 
+    return null;
 }
 
 function csvJSON(csv) {

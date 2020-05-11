@@ -64,6 +64,46 @@ class BlogOverview extends React.Component {
 
   }
 
+  getPieChart() {
+    if (this.state.pie) {
+      return (
+        <Col lg="4" md="6" sm="12" className="mb-4">
+              <UsersByDevice {...{
+                    title: "World Comparison",
+                    chartData: {
+                      datasets:
+                        this.state.focus.map((x, key) => ({
+                          key: key,
+                          hoverBorderColor: "#ffffff",
+                          data: this.state.pie[x].map(x => x.value),
+                          title: x,
+                          labels: this.state.pie[x].map(x => x.country),
+                          backgroundColor: this.state.pie[x].map((x, ind) => "rgba(0,123,255," + String((ind+1.0)/this.state.pieCutoff) + ")")
+                        }))
+                    }
+                  }}
+              />
+            </Col>
+      );
+    }
+    
+  }
+
+  getTables() {
+    if (this.state.table) {
+      return  (
+        this.state.focus.map((x, i) => (<Col lg="4" md="12" sm="12" className="mb-4">
+        <TopReferrals {...{
+            key: i,
+            title: x,
+            referralData: this.state.table[x].map((x, idx) => ({'title': x.country, 'value': x.value, 'key':idx}))
+          }}/>
+      </Col>))
+      );
+    }
+    
+  }
+
   getSmallStats() {
     const ov = this.state.overview
     return (
@@ -97,6 +137,8 @@ class BlogOverview extends React.Component {
   }
 
   render() {
+
+
     if (this.state.overview !== null && this.state.countries !== null) {
       return (
         <Container fluid className="main-content-container px-4">
@@ -106,66 +148,25 @@ class BlogOverview extends React.Component {
             
           </Row>
           <Row noGutters className="pb-4">
-            {/* <FormSelect size="md" style={{ maxWidth: "260px" }} onChange={this.yourChangeHandler.bind(this)}>
-                {this.state.countries.map((c, key) => (<option value={c} key={key}>{c}</option>))}
-            </FormSelect> */}
-  <div style={{width: '300px', zIndex: 2}}>
-
-            <Select placeholder={this.state.country} value={this.state.country} style={{ width: 42}} onChange={this.handleChange.bind(this)} options={this.state.countries.map((c, _) => ({value: c, label: c === "US" ? "United States" : c}))}/>
-</div>
+          <div style={{width: '300px', zIndex: 2}}>
+            <Select placeholder={this.state.country} value={this.state.country} style={{ width: 42}} onChange={this.handleChange.bind(this)} options={this.state.countries.map((c, idx) => ({value: c, key:idx, label: c === "US" ? "United States" : c}))}/>
+          </div>
 
           </Row>
 
           {this.getSmallStats()}
     
-          <Row>
+          <Row style={{flex:1}}>
+          
             {/* Users Overview */}
-            <Col lg="8" md="12" sm="12" className="mb-4">
-              <UsersOverview {...{
-                'title': "Cases over Time",
-                'chartData': {
-                  labels: Array.from(this.state.overview[0].dates, (v, i) => ((new Date(v)).toLocaleDateString("en-US", {month: 'short', day: '2-digit'})+"  ")),
-                  datasets: this.state.overview.map((stats, idx) => ({
-                    label: stats.label,
-                    fill: "start",
-                    data: stats.series,
-                    backgroundColor: stats.bgColor,
-                    borderColor: stats.color,
-                    pointBackgroundColor: stats.color,
-                    pointHoverBackgroundColor: stats.color,
-                    borderWidth: 1.5,
-                    pointRadius: 0,
-                    pointHoverRadius: 0
-                  }))
-                }}}
-              />
+            <Col style={{flex:1}}>
+            <iframe style={{flex:1 }} width="100%"  height="390%" frameborder="0" scrolling="no" 
+    marginheight="0" marginwidth="0" title="2019-nCoV" 
+    src="//arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=true&previewImage=false&scale=true&disable_scroll=true&theme=light"
+  ></iframe>
+            <a>{"Map: Johns Hopkins University"}</a>
             </Col>
-
-    
-            <Col lg="4" md="6" sm="12" className="mb-4">
-              <UsersByDevice {...{
-                    title: "World Comparison",
-                    chartData: {
-                      datasets:
-                        this.state.focus.map(x => ({
-                          hoverBorderColor: "#ffffff",
-                          data: this.state.pie[x].map(x => x.value),
-                          title: x,
-                          labels: this.state.pie[x].map(x => x.country),
-                          backgroundColor: this.state.pie[x].map((x, ind) => "rgba(0,123,255," + String((ind+1.0)/this.state.pieCutoff) + ")")
-                        }))
-                    }
-                  }}
-              />
-            </Col>
-    
-            {this.state.focus.map((x, i) => (<Col lg="4" md="12" sm="12" className="mb-4">
-              <TopReferrals {...{
-                  key: i,
-                  title: x,
-                  referralData: this.state.table[x].map(x => ({'title': x.country, 'value': x.value}))
-                }}/>
-            </Col>))}
+            
           </Row>
         </Container>
       );

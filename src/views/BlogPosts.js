@@ -20,60 +20,53 @@ class BlogPosts extends React.Component {
   state = {
     resource:null
   }
-  async componentDidMount() {
 
+  async componentDidMount() {
     const essays = await getEssays();
-    
     this.setState({posts: essays});
   }
    
-   
-
   constructor(props) {
     super(props);
-
     this.state = {posts: []};
   }
 
   getUI = (() => {
     if (this.state.posts.length == 0) {
+      console.log("There were no posts, displaying bubles")
       return (
         <Container fluid className="main-content-container px-4">
-
           <ReactLoading  type={'bubbles'} color={"#aaaaaa"}/>
-
         </Container>
       );
-    }
-    return (
-      
-
+    } else {
+      console.log("There were posts, displaying content. This is the first post:")
+      console.log(this.state.posts[0])
+      return (
         <Row>
           {this.state.posts.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post h-100">
-                <div
+                 <div
                   className="card-post__image"
                   style={{ backgroundImage: `url('${post.backgroundImage}')` }}
                 />
                 <CardBody>
                   <h5 className="card-title">
-                    
-                    <a className="text-fiord-blue" href={isWebsite(post.resource) ? post.resource : "#"} onClick={() => {
-                      if (isWebsite(post.resource)) {
-
-                      } else if (isGoogleID(post.resource)) {
-                        this.setState({resource:post.resource, title:post.title, subtitle:post.subtitle.replace('"',"").replace('"',"")})
-                      }
-
-
-                      
-                      }}>
+                    <a 
+                      className="text-fiord-blue" 
+                      href={isWebsite(post.resource) ? post.resource : "#"} 
+                      onClick={() => { 
+                        if (!isWebsite(post.resource) && isGoogleID(post.resource)) { 
+                          this.setState({resource:post.resource, title:post.title, subtitle:post.author.replace('"',"").replace('"',"")})
+                        }
+                      }}
+                      >
                       {post.title}
                     </a>
                   </h5>
                   <p className="card-text">{post.subtitle.replace('"',"").replace('"',"")}</p>
-                </CardBody>
+                </CardBody> 
                 <CardFooter className="text-muted border-top py-3">
                   <span className="d-inline-block">
                     {"By " + post.author}
@@ -83,13 +76,16 @@ class BlogPosts extends React.Component {
             </Col>
           ))}
         </Row>
-    );
+      );
+    }
+    
   })
-  // resource:"2PACX-1vQBfwkjz4dSf0hg6wgQ7M2f184a4KcH_tm_qL2dV6aCIks30xPzb4DAxyu8TmmBNapE2QzGhBpYMskq"
 
   render() {
-    console.log(this.state)
+    
     if (this.state.resource != null) {
+      console.log("Displaying google doc with ID:")
+      console.log(this.state.resource)
       return (
         <Container fluid className="main-content-container px-4" style={{ height:"100%",scrolling:"no" }}>
           {/* Page Header */}
@@ -105,6 +101,7 @@ class BlogPosts extends React.Component {
         </Container>
       )
     } else {
+      console.log("Displaying blog posts")
         return (
         <Container fluid className="main-content-container px-4">
           {/* Page Header */}
