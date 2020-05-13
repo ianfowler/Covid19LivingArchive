@@ -26,7 +26,7 @@
     <title>IMSA COVID-19 Living Archive</title>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- <div id="root"></div> -->
     <!--
       This HTML file is a template. And I just edited it.
       If you open it directly in the browser, you will see an empty page.
@@ -37,5 +37,16 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <div id="main_app"></div>
+    
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    
+    <!-- Load our React component. -->
+    <script src="./src/App.js"></script>
+    
   </body>
 </html>

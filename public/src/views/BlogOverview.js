@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { Container, Row, Col, FormSelect} from "shards-react";
 import ls from 'local-storage'
 
-import PageTitle from "./../components/common/PageTitle";
-import SmallStats from "./../components/common/SmallStats";
-import UsersOverview from "./../components/blog/UsersOverview";
-import UsersByDevice from "./../components/blog/UsersByDevice";
-import TopReferrals from "./../components/common/TopReferrals";
+import PageTitle from "../components/common/PageTitle";
+import SmallStats from "../components/common/SmallStats";
+import UsersOverview from "../components/blog/UsersOverview";
+import UsersByDevice from "../components/blog/UsersByDevice";
+import TopReferrals from "../components/common/TopReferrals";
 import { getGlobalArr, updateDataIfNecessary, getCountriesList, getPie} from "../assets/ajax";
 import ReactLoading from 'react-loading';
 import Select from 'react-select'
