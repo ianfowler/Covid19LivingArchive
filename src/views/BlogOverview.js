@@ -8,7 +8,7 @@ import SmallStats from "../components/common/SmallStats";
 import UsersOverview from "../components/blog/UsersOverview";
 import UsersByDevice from "../components/blog/UsersByDevice";
 import TopReferrals from "../components/common/TopReferrals";
-import { getGlobalArr, updateDataIfNecessary, getCountriesList, getPie} from "../assets/ajax";
+import { getSummary, refreshSummary } from "../assets/ajax";
 import ReactLoading from 'react-loading';
 import Select from 'react-select'
 
@@ -22,11 +22,11 @@ class BlogOverview extends React.Component {
     overview: null,
     country: 'World',
     countries: null,
-    pie: null,
-    table: null,
-    pieCutoff: 5,
-    tableCutoff: 12,
-    focus: ["Total Confirmed Cases", "Total Deaths", "Total Recoveries"]//, "New Confirmed Cases", "New Deaths", "New Recoveries"]
+    // pie: null,
+    // table: null,
+    // pieCutoff: 5,
+    // tableCutoff: 12,
+    focus: ["Total Confirmed", "Total Deaths", "Total Recovered"]//, "New Confirmed Cases", "New Deaths", "New Recoveries"]
   };
 
   async componentDidMount() {
@@ -35,111 +35,84 @@ class BlogOverview extends React.Component {
       ct = "World"
       ls.set('country', ct)
     }
-    console.log(ct)
-    await updateDataIfNecessary();
-    const ov = await getGlobalArr(ct);
-    const cts = await getCountriesList();
 
-    
-    const pie = await getPie(this.state.pieCutoff);
-    const table = await getPie(this.state.tableCutoff);
-    this.setState({overview:ov, countries:cts, country:ct, pie:pie, table: table})
+    const ov = await getSummary();
+    try {
+      const cts = ov["Countries"].map(x => x["Country"])
+      this.setState({overview:ov, countries: cts, country: ct}) 
+    } catch (e) {
+      
+    }
   };
 
+  getSelectedCountryData() {
+    if (this.state.country === "World") {
+      return this.state.overview["Global"]
+    }
+    return this.state.overview["Countries"].filter(obj => {
+      return obj["Country"] === this.state.country
+    })[0]
+    
+  }
 
   async yourChangeHandler(event) {
     const ct = event.target.value
     ls.set('country', ct)
-    const ov = await getGlobalArr(ct);
-    this.setState({overview: Object.assign([], ov)})
+    const ov = await getSummary();
+    this.setState({overview: Object.assign([], ov), country: ct})
     window.location.reload(false)
   }
 
   async handleChange(selectedOption) {
     const ct = selectedOption.value
     ls.set('country', ct)
-    const ov = await getGlobalArr(ct);
-    this.setState({overview: Object.assign([], ov)})
+    const ov = await getSummary();
+    this.setState({overview: Object.assign([], ov), country: ct})
     window.location.reload(false)
 
   }
 
-  getPieChart() {
-    if (this.state.pie) {
-      return (
-        <Col lg="4" md="6" sm="12" className="mb-4">
-              <UsersByDevice {...{
-                    title: "World Comparison",
-                    chartData: {
-                      datasets:
-                        this.state.focus.map((x, key) => ({
-                          key: key,
-                          hoverBorderColor: "#ffffff",
-                          data: this.state.pie[x].map(x => x.value),
-                          title: x,
-                          labels: this.state.pie[x].map(x => x.country),
-                          backgroundColor: this.state.pie[x].map((x, ind) => "rgba(0,123,255," + String((ind+1.0)/this.state.pieCutoff) + ")")
-                        }))
-                    }
-                  }}
-              />
-            </Col>
-      );
-    }
-    
-  }
-
-  getTables() {
-    if (this.state.table) {
-      return  (
-        this.state.focus.map((x, i) => (<Col lg="4" md="12" sm="12" className="mb-4">
-        <TopReferrals {...{
-            key: i,
-            title: x,
-            referralData: this.state.table[x].map((x, idx) => ({'title': x.country, 'value': x.value, 'key':idx}))
-          }}/>
-      </Col>))
-      );
-    }
-    
-  }
-
-  getSmallStats() {
+  getTop() {
     const ov = this.state.overview
-    return (
-      <Row>
-            {ov.map((stats, idx) => (
-              <Col className="col-lg mb-4" key={idx}>
-                <SmallStats
-                  id={`small-stats-${idx}`}
-                  variation="2"
-                  chartData={[
-                    {
-                      label: "Today",
-                      fill: "start",
-                      borderWidth: 1.5,
-                      backgroundColor: stats.bgColor,
-                      borderColor: stats.color,
-                      data: stats.series
-                    }
-                  ]}
-                  chartLabels={Array(stats.series.length).fill(null)}
-                  label={stats.label}
-                  value={stats.series[stats.series.length -1]}
-                  percentage={stats.percentDifference}
-                  increase={stats.increase}
-                  increaseIsGood={false}
-                />
-              </Col>
-            ))}
-          </Row> 
-    )
+    if (ov && this.state.countries.length > 0 && Object.keys(ov).length > 0) {
+      return (
+        <div>
+        <Row noGutters className="pb-4">
+            <div style={{width: '300px', zIndex: 2}}>
+              <Select placeholder={this.state.country} value={this.state.country} style={{ width: 42}} onChange={this.handleChange.bind(this)} options={this.state.countries.map((c, idx) => ({value: c, key:idx, label: c === "US" ? "United States" : c}))}/>
+            </div>
+        </Row>
+        <Row>
+              {this.state.focus.map((f, idx) => (
+                <Col className="col-lg mb-4" key={idx}>
+                  <SmallStats
+                    id={`small-stats-${idx}`}
+                    variation="1"
+                    label={f}
+                    value={this.getSelectedCountryData()[f.replace(" ","")]}
+                    percentage={this.getSelectedCountryData()[f.replace(" ","").replace("Total","New")]}
+                   />
+                </Col>
+              ))}
+            </Row> </div>
+      )
+    }
+    
   }
 
+
+  // async refresh() {
+  //   refreshSummary()
+  //   const summary = await getSummary()
+  //   if (summary) {
+  //     const cts = summary["Countries"].map(x => x["Country"])
+  //     BlogOverview.setState({overview:summary, countries: cts}) 
+  //   }
+   
+  // }
   render() {
 
 
-    if (this.state.overview !== null && this.state.countries !== null) {
       return (
         <Container fluid className="main-content-container px-4">
           {/* Page Header */}
@@ -147,40 +120,30 @@ class BlogOverview extends React.Component {
             <PageTitle title="COVID-19 Tracker" subtitle="Daily Updates" className="text-sm-left mb-3" />
             
           </Row>
-          <Row noGutters className="pb-4">
-          <div style={{width: '300px', zIndex: 2}}>
-            <Select placeholder={this.state.country} value={this.state.country} style={{ width: 42}} onChange={this.handleChange.bind(this)} options={this.state.countries.map((c, idx) => ({value: c, key:idx, label: c === "US" ? "United States" : c}))}/>
-          </div>
+          
 
-          </Row>
+          {this.getTop()}
 
-          {this.getSmallStats()}
+          {/* <button onClick={this.refresh}>
+            Activate Lasers
+          </button> */}
     
           <Row style={{flex:1}}>
           
             {/* Users Overview */}
             <Col style={{flex:1}}>
-            <iframe style={{flex:1 }} width="100%"  height="390%" frameborder="0" scrolling="no" 
+            <iframe style={{flex:1 }} width="100%"  height="390%" frameBorder="0" scrolling="no" 
     marginHeight="0" marginWidth="0" title="2019-nCoV" 
     src="//arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=true&previewImage=false&scale=true&disable_scroll=true&theme=light"
   ></iframe>
-            <a>{"Map: Johns Hopkins University"}</a>
+            <a>{"Credit: Johns Hopkins University"}</a>
             </Col>
             
           </Row>
         </Container>
       );
-    } else {
-      return (
-        <Container fluid className="main-content-container px-4">
-          <ReactLoading  type={'bubbles'} color={"#aaaaaa"}/>
-        </Container>
-        
-      )
-    };
-    } 
     
-  
+    }
 
   
 }

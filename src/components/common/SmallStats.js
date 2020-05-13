@@ -52,7 +52,7 @@ class SmallStats extends React.Component {
                 isplay: false,
                 // Avoid getting the graph line cut of at the top of the canvas.
                 // Chart.js bug link: https://github.com/chartjs/Chart.js/issues/4790
-                suggestedMax: Math.max(...this.props.chartData[0].data) + 1
+                suggestedMax: 1
               }
             }
           ]
@@ -181,7 +181,7 @@ SmallStats.propTypes = {
   /**
    * The chart data.
    */
-  chartData: PropTypes.array.isRequired,
+  chartData: PropTypes.array,
   /**
    * The chart labels.
    */

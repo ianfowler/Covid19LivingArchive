@@ -54,7 +54,7 @@ class BlogPosts extends React.Component {
                     <a 
                       className="text-fiord-blue" 
                       href={isWebsite(post.resource) ? post.resource : "#"} 
-                      onClick={() => { 
+                      onClick={() => {
                         if (!isWebsite(post.resource) && isGoogleID(post.resource)) { 
                           this.setState({resource:post.resource, title:post.title.trim(), subtitle:post.author.replace('"',"").replace('"',"").trim()})
                         }
