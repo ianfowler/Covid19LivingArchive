@@ -40,8 +40,6 @@ class BlogPosts extends React.Component {
         </Container>
       );
     } else {
-      console.log("There were posts, displaying content. This is the first post:")
-      console.log(this.state.posts[0])
       return (
         <Row>
           {this.state.posts.map((post, idx) => (
@@ -58,7 +56,7 @@ class BlogPosts extends React.Component {
                       href={isWebsite(post.resource) ? post.resource : "#"} 
                       onClick={() => { 
                         if (!isWebsite(post.resource) && isGoogleID(post.resource)) { 
-                          this.setState({resource:post.resource, title:post.title, subtitle:post.author.replace('"',"").replace('"',"")})
+                          this.setState({resource:post.resource, title:post.title.trim(), subtitle:post.author.replace('"',"").replace('"',"").trim()})
                         }
                       }}
                       >
@@ -84,8 +82,6 @@ class BlogPosts extends React.Component {
   render() {
     
     if (this.state.resource != null) {
-      console.log("Displaying google doc with ID:")
-      console.log(this.state.resource)
       return (
         <Container fluid className="main-content-container px-4" style={{ height:"100%",scrolling:"no" }}>
           {/* Page Header */}
@@ -101,7 +97,6 @@ class BlogPosts extends React.Component {
         </Container>
       )
     } else {
-      console.log("Displaying blog posts")
         return (
         <Container fluid className="main-content-container px-4">
           {/* Page Header */}
