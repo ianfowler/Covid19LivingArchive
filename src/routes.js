@@ -15,10 +15,10 @@ import BlogPosts from "./views/BlogPosts";
 
 export default [
   {
-    path: "/",
+    path: "/Covid19LivingArchive",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/blog-posts" />
   },
   {
     path: "/blog-overview",

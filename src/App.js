@@ -6,26 +6,16 @@ import withTracker from "./withTracker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
-'use strict';
+// 'use strict';
 
 const e = React.createElement;
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { liked: false };
   }
 
   render() {
-    if (this.state.liked) {
-      return 'You liked this.';
-    }
-
-    return e(
-      'button',
-      { onClick: () => this.setState({ liked: true }) },
-      'Like'
-    );
     return (
       <Router basename={process.env.REACT_APP_BASENAME || ""}>
         <div>
@@ -54,7 +44,3 @@ class App extends React.Component {
 
 
 
-const domContainer = document.querySelector('#main_app');
-ReactDOM.render(e(App), domContainer);
-
-// export default App
