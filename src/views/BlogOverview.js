@@ -60,7 +60,7 @@ class BlogOverview extends React.Component {
     ls.set('country', ct)
     const ov = await getSummary();
     this.setState({overview: Object.assign([], ov), country: ct})
-    window.location.reload(false)
+    // window.location.reload(false)
   }
 
   async handleChange(selectedOption) {
@@ -68,7 +68,7 @@ class BlogOverview extends React.Component {
     ls.set('country', ct)
     const ov = await getSummary();
     this.setState({overview: Object.assign([], ov), country: ct})
-    window.location.reload(false)
+    // window.location.reload(false)
 
   }
 
