@@ -31,8 +31,8 @@ class BlogPosts extends React.Component {
   }
 
   isUrl(url) {
-    var pattern = new RegExp("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/"); // fragment locator
-    const patternMatches = pattern.test(url);
+    // var pattern = new RegExp("/(ftp|http|https):\/\/[\w#!:.?+=&%@!\-\/]*/"); // fragment locator
+    const patternMatches = url.includes("http://") || url.includes("ftp://") || url.includes("https://")
     console.log(url);
     console.log(patternMatches);
     return patternMatches
@@ -40,7 +40,9 @@ class BlogPosts extends React.Component {
 
 
   handleClick(resource, author, title) {
-    if (!this.isUrl(resource) && isGoogleID(resource)) { 
+    if (this.isUrl(resource)) {
+      window.open(resource, '_blank');
+    } else if (!this.isUrl(resource) && isGoogleID(resource)) { 
       this.setState({resource:resource, title:title.trim(), subtitle:author.replace('"',"").replace('"',"").trim()})
     }
   }
@@ -66,7 +68,8 @@ class BlogPosts extends React.Component {
                     <h5 className="card-title">
                       <a 
                         className="text-fiord-blue" 
-                        href={this.isUrl(post.resource) ? post.resource : "#"} 
+                        // href={this.isUrl(post.resource) ? post.resource : "#"} 
+                        href={"#"} 
                         onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
                         >
                         {post.title}
@@ -85,9 +88,12 @@ class BlogPosts extends React.Component {
           </Row>
         );
       } catch (e) {
-        return (<Row>
-            <h1>Oh no! It looks like there's something messed up in the Google Sheet. Did someone break the rules?</h1>
-        </Row>
+        return (
+          <Container fluid className="main-content-container px-4">
+            <Row>
+              <h3>Oh no! It looks like there's something messed up in the Google Sheet. Did someone break the rules?</h3>
+            </Row>
+          </Container>
         )
         
       }
