@@ -35,7 +35,7 @@ class BlogPosts extends React.Component {
     console.log("Handle click")
     if (!isWebsite(resource) && isGoogleID(resource)) { 
       console.log("setting state again")
-      // this.setState({resource:resource, title:title.trim(), subtitle:author.replace('"',"").replace('"',"").trim()})
+      this.setState({resource:resource, title:title.trim(), subtitle:author.replace('"',"").replace('"',"").trim()})
     }
   }
   getUI = (() => {
@@ -60,9 +60,9 @@ class BlogPosts extends React.Component {
                   <h5 className="card-title">
                     <a 
                       className="text-fiord-blue" 
-                      // href={isWebsite(post.resource) ? post.resource : "#"} 
-                      href={"#"} 
-                      // onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
+                      href={isWebsite(post.resource) ? post.resource : "#"} 
+                      // href={"#"} 
+                      onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
                       >
                       {post.title}
                     </a>
