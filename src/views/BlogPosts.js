@@ -30,14 +30,14 @@ class BlogPosts extends React.Component {
     this.state = {posts: []};
   }
 
-  testResource(url) {
+  isUrl(url) {
     var pattern = new RegExp("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/"); // fragment locator
     return pattern.test(url);
   }
 
 
   handleClick(resource, author, title) {
-    if (!this.testResource(resource) && isGoogleID(resource)) { 
+    if (!this.isUrl(resource) && isGoogleID(resource)) { 
       this.setState({resource:resource, title:title.trim(), subtitle:author.replace('"',"").replace('"',"").trim()})
     }
   }
@@ -62,7 +62,7 @@ class BlogPosts extends React.Component {
                   <h5 className="card-title">
                     <a 
                       className="text-fiord-blue" 
-                      href={this.testResource(post.resource) ? "blog-posts" : "#"} 
+                      href={this.isUrl(post.resource) ? post.resource : "blog-posts"} 
                       onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
                       >
                       {post.title}
