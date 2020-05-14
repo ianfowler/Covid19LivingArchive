@@ -30,17 +30,19 @@ class BlogPosts extends React.Component {
     this.state = {posts: []};
   }
 
+  testResource(url) {
+    var pattern = new RegExp("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/"); // fragment locator
+    return pattern.test(url);
+  }
+
 
   handleClick(resource, author, title) {
-    console.log("Handle click")
-    if (!isWebsite(resource) && isGoogleID(resource)) { 
-      console.log("setting state again")
+    if (!this.testResource(resource) && isGoogleID(resource)) { 
       this.setState({resource:resource, title:title.trim(), subtitle:author.replace('"',"").replace('"',"").trim()})
     }
   }
   getUI = (() => {
     if (this.state.posts.length == 0) {
-      console.log("There were no posts, displaying bubles")
       return (
         <Container fluid className="main-content-container px-4">
           <ReactLoading  type={'bubbles'} color={"#aaaaaa"}/>
@@ -60,8 +62,7 @@ class BlogPosts extends React.Component {
                   <h5 className="card-title">
                     <a 
                       className="text-fiord-blue" 
-                      href={isWebsite(post.resource) ? post.resource : "#"} 
-                      // href={"#"} 
+                      href={this.testResource(post.resource) ? "blog-posts" : "#"} 
                       onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
                       >
                       {post.title}
