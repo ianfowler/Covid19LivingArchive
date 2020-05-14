@@ -18,7 +18,7 @@ export default [
     path: "/Covid19LivingArchive",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-posts" />
+    component: () => <Redirect to="/Covid19LivingArchive/blog-posts" />
   },
   {
     path: "/Covid19LivingArchive/blog-overview",
