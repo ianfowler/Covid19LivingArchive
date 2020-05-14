@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/Covid19LivingArchive/static/css/main.49fb6980.chunk.css",
-    "main.js": "/Covid19LivingArchive/static/js/main.aa35390e.chunk.js",
-    "main.js.map": "/Covid19LivingArchive/static/js/main.aa35390e.chunk.js.map",
-    "runtime-main.js": "/Covid19LivingArchive/static/js/runtime-main.4a0b28df.js",
-    "runtime-main.js.map": "/Covid19LivingArchive/static/js/runtime-main.4a0b28df.js.map",
+    "main.js": "/Covid19LivingArchive/static/js/main.e4d9c3a5.chunk.js",
+    "main.js.map": "/Covid19LivingArchive/static/js/main.e4d9c3a5.chunk.js.map",
+    "runtime-main.js": "/Covid19LivingArchive/static/js/runtime-main.0467e9d8.js",
+    "runtime-main.js.map": "/Covid19LivingArchive/static/js/runtime-main.0467e9d8.js.map",
     "static/css/2.a9d422b8.chunk.css": "/Covid19LivingArchive/static/css/2.a9d422b8.chunk.css",
-    "static/js/2.832fc6e3.chunk.js": "/Covid19LivingArchive/static/js/2.832fc6e3.chunk.js",
-    "static/js/2.832fc6e3.chunk.js.map": "/Covid19LivingArchive/static/js/2.832fc6e3.chunk.js.map",
+    "static/js/2.572a980a.chunk.js": "/Covid19LivingArchive/static/js/2.572a980a.chunk.js",
+    "static/js/2.572a980a.chunk.js.map": "/Covid19LivingArchive/static/js/2.572a980a.chunk.js.map",
     "index.html": "/Covid19LivingArchive/index.html",
-    "precache-manifest.b1531a621db4a5f83097e87991f51799.js": "/Covid19LivingArchive/precache-manifest.b1531a621db4a5f83097e87991f51799.js",
+    "precache-manifest.21a9327307225fb7794c965e13c67ffc.js": "/Covid19LivingArchive/precache-manifest.21a9327307225fb7794c965e13c67ffc.js",
     "service-worker.js": "/Covid19LivingArchive/service-worker.js",
     "static/css/2.a9d422b8.chunk.css.map": "/Covid19LivingArchive/static/css/2.a9d422b8.chunk.css.map",
     "static/css/main.49fb6980.chunk.css.map": "/Covid19LivingArchive/static/css/main.49fb6980.chunk.css.map",
-    "static/js/2.832fc6e3.chunk.js.LICENSE.txt": "/Covid19LivingArchive/static/js/2.832fc6e3.chunk.js.LICENSE.txt",
+    "static/js/2.572a980a.chunk.js.LICENSE.txt": "/Covid19LivingArchive/static/js/2.572a980a.chunk.js.LICENSE.txt",
     "static/media/0.jpg": "/Covid19LivingArchive/static/media/0.73476783.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.4a0b28df.js",
+    "static/js/runtime-main.0467e9d8.js",
     "static/css/2.a9d422b8.chunk.css",
-    "static/js/2.832fc6e3.chunk.js",
+    "static/js/2.572a980a.chunk.js",
     "static/css/main.49fb6980.chunk.css",
-    "static/js/main.aa35390e.chunk.js"
+    "static/js/main.e4d9c3a5.chunk.js"
   ]
 }
