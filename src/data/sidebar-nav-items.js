@@ -3,11 +3,11 @@ export default function() {
     {
       title: "Blog Posts",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/blog-posts",
+      to: "/Covid19LivingArchive/blog-posts",
     },
     {
       title: "Tracker Dashboard",
-      to: "/blog-overview",
+      to: "/Covid19LivingArchive/blog-overview",
       htmlBefore: '<i class="material-icons">timeline</i>'
     }
   ];
