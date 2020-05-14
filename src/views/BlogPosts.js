@@ -32,7 +32,10 @@ class BlogPosts extends React.Component {
 
   isUrl(url) {
     var pattern = new RegExp("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/"); // fragment locator
-    return pattern.test(url);
+    const patternMatches = pattern.test(url);
+    console.log(url);
+    console.log(patternMatches);
+    return patternMatches
   }
 
 
@@ -49,37 +52,46 @@ class BlogPosts extends React.Component {
         </Container>
       );
     } else {
-      return (
-        <Row>
-          {this.state.posts.map((post, idx) => (
-            <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-              <Card small className="card-post h-100">
-                 <div
-                  className="card-post__image"
-                  style={{ backgroundImage: `url('${post.backgroundImage}')` }}
-                />
-                <CardBody>
-                  <h5 className="card-title">
-                    <a 
-                      className="text-fiord-blue" 
-                      href={this.isUrl(post.resource) ? post.resource : "blog-posts"} 
-                      onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
-                      >
-                      {post.title}
-                    </a>
-                  </h5>
-                  <p className="card-text">{post.subtitle.replace('"',"").replace('"',"")}</p>
-                </CardBody> 
-                <CardFooter className="text-muted border-top py-3">
-                  <span className="d-inline-block">
-                    {"By " + post.author}
-                  </span>
-                </CardFooter>
-              </Card>
-            </Col>
-          ))}
+      try {
+        return (
+          <Row>
+            {this.state.posts.map((post, idx) => (
+              <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                <Card small className="card-post h-100">
+                   <div
+                    className="card-post__image"
+                    style={{ backgroundImage: `url('${post.backgroundImage}')` }}
+                  />
+                  <CardBody>
+                    <h5 className="card-title">
+                      <a 
+                        className="text-fiord-blue" 
+                        href={this.isUrl(post.resource) ? post.resource : "#"} 
+                        onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
+                        >
+                        {post.title}
+                      </a>
+                    </h5>
+                    <p className="card-text">{post.subtitle.replace('"',"").replace('"',"")}</p>
+                  </CardBody> 
+                  <CardFooter className="text-muted border-top py-3">
+                    <span className="d-inline-block">
+                      {"By " + post.author}
+                    </span>
+                  </CardFooter>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        );
+      } catch (e) {
+        return (<Row>
+            <h1>Oh no! It looks like there's something messed up in the Google Sheet. Did someone break the rules?</h1>
         </Row>
-      );
+        )
+        
+      }
+      
     }
   })
 
