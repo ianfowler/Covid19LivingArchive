@@ -21,37 +21,37 @@ export default [
     component: () => <Redirect to="/blog-posts" />
   },
   {
-    path: "/blog-overview",
+    path: "/Covid19LivingArchive/blog-overview",
     layout: DefaultLayout,
     component: BlogOverview
   },
   {
-    path: "/user-profile-lite",
+    path: "/Covid19LivingArchive/user-profile-lite",
     layout: DefaultLayout,
     component: UserProfileLite
   },
   {
-    path: "/add-new-post",
+    path: "/Covid19LivingArchive/add-new-post",
     layout: DefaultLayout,
     component: AddNewPost
   },
   {
-    path: "/errors",
+    path: "/Covid19LivingArchive/errors",
     layout: DefaultLayout,
     component: Errors
   },
   {
-    path: "/components-overview",
+    path: "/Covid19LivingArchive/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
   },
   {
-    path: "/tables",
+    path: "/Covid19LivingArchive/tables",
     layout: DefaultLayout,
     component: Tables
   },
   {
-    path: "/blog-posts",
+    path: "/Covid19LivingArchive/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
   }
