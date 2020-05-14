@@ -1,5 +1,4 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
-
 import React from "react";
 import {
   Container,
@@ -31,6 +30,14 @@ class BlogPosts extends React.Component {
     this.state = {posts: []};
   }
 
+
+  handleClick(resource, author, title) {
+    console.log("Handle click")
+    if (!isWebsite(resource) && isGoogleID(resource)) { 
+      console.log("setting state again")
+      this.setState({resource:resource, title:title.trim(), subtitle:author.replace('"',"").replace('"',"").trim()})
+    }
+  }
   getUI = (() => {
     if (this.state.posts.length == 0) {
       console.log("There were no posts, displaying bubles")
@@ -54,11 +61,7 @@ class BlogPosts extends React.Component {
                     <a 
                       className="text-fiord-blue" 
                       href={isWebsite(post.resource) ? post.resource : "#"} 
-                      onClick={() => {
-                        if (!isWebsite(post.resource) && isGoogleID(post.resource)) { 
-                          this.setState({resource:post.resource, title:post.title.trim(), subtitle:post.author.replace('"',"").replace('"',"").trim()})
-                        }
-                      }}
+                      onClick={this.handleClick.bind(this, post.resource, post.author, post.title)}
                       >
                       {post.title}
                     </a>
@@ -76,11 +79,10 @@ class BlogPosts extends React.Component {
         </Row>
       );
     }
-    
   })
 
   render() {
-    
+    console.log("Rendering")
     if (this.state.resource != null) {
       return (
         <Container fluid className="main-content-container px-4" style={{ height:"100%",scrolling:"no" }}>
