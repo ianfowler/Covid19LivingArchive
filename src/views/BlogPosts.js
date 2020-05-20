@@ -105,17 +105,17 @@ class BlogPosts extends React.Component {
     console.log("Rendering")
     if (this.state.resource != null) {
       return (
-        <Container fluid className="main-content-container px-4" style={{ height:"100%",scrolling:"no" }}>
+        <Container fluid className="main-content-container px-4" style={{ display:"table", height:"100vh"}}>
           {/* Page Header */}
-          <Row noGutters className="page-header py-4">
+          <Row  className="page-header py-4">
               <PageTitle sm="4" title={this.state.title} subtitle={this.state.subtitle} className="text-sm-left" />
           </Row>
-          <Row  noGutters className="page-header py-4" style={{margin:0, padding:0}}>
+          <Row   className="page-header py-4" style={{margin:0, padding:0}}>
               <a className="text-fiord-blue" href="#" onClick={() => {this.setState({resource:null}) }}>{"Back"}</a>
             </Row>
-          <Row noGutters style={{ flex:1, height:"100%", border:"none", margin:0, padding:0, scrolling:"no"}} >
-            {<iframe src={"https://docs.google.com/document/d/e/"+this.state.resource+"/pub?embedded=true"} style={{ flex:1, border:"none", margin:0, padding:0}} ></iframe>}
-          </Row>
+          <div style={{ display:"table-row", height: "100%"}} >
+            {<iframe src={"https://docs.google.com/document/d/e/"+this.state.resource+"/pub?embedded=true"}  frameBorder="no" style={{ width:"100%", height:"100%"}}></iframe>}
+          </div>
         </Container>
       )
     } else {
